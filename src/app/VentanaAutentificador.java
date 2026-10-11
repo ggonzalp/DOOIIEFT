@@ -52,8 +52,11 @@ public class VentanaAutentificador extends JFrame {
             JOptionPane.showMessageDialog(this, "Acceso solo para personal de la biblioteca");
             return;
         }
-        JOptionPane.showMessageDialog(this, "Bienvenid@ " + usuario.getNombreUsuario());
+        Object[] opciones = {"Ingresar al Sistema"};
+        JOptionPane.showOptionDialog(this, "Bienvenid@ " + usuario.getNombreUsuario(), "Inicio de sesión",
+        JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones, opciones[0]);
         dispose();
+        new VentanaUsuario(controlador, usuario).setVisible(true);
     }
 
     private void limpiar() {
@@ -65,9 +68,5 @@ public class VentanaAutentificador extends JFrame {
     private void salir() {
         dispose();
     }
-
-
-    //Aquí abrirá la ventana de gestión biblioteca.
-
 
 }

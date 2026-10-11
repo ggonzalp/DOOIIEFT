@@ -142,6 +142,7 @@ public class VentanaEstudiante extends JFrame {
         mostrandoCatalogo = false;
 
         tableModel.setColumnIdentifiers(new Object[]{"ID", "Libro", "Fecha préstamo", "Fecha devolución", "Estado"});
+        tableModel.setRowCount(0);
         for (Prestamo prestamo : historial) {
             String estado;
             if (prestamo.isDevuelto()) {

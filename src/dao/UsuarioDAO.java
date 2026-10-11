@@ -24,7 +24,7 @@ public class UsuarioDAO {
      */
 
     public Usuario autenticar(String correo, String contrasena) {
-        String sql = "SELECT idUsuario, nombreUsuario, rut, correo, contrasena, rol FROM usuarios WHERE correo =? AND contrasena =?";
+        String sql = "SELECT idUsuario, nombreUsuario, rut, correo, contrasena, rol FROM usuarios WHERE correo =? AND BINARY contrasena =?";
 
         try (Connection conexion = DatabaseConnection.conectar();
              PreparedStatement ps = conexion.prepareStatement(sql)) {
