@@ -24,7 +24,7 @@ public class LibroDAO {
     public boolean guardar(Libro libro) {
         String sql = "INSERT INTO libros (titulo, autor, isbn, editorial, stock, idCategoria) VALUES(?, ?, ?, ?, ?, ?)";
 
-        try (Connection conexion = DatabaseConnection.conectar();
+        try (Connection conexion = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conexion.prepareStatement(sql)) {
 
             ps.setString(1, libro.getTitulo());
@@ -49,9 +49,9 @@ public class LibroDAO {
     public List<Libro> listarTodos() {
         List<Libro> libros = new ArrayList<>();
 
-        String sql = "SELECT idLibro, titulo, autor, isbn, editorial, stock, idCategoria FROM libros";
+        String sql = "SELECT libro.idLibro, libro.titulo, libro.autor, libro.isbn, libro.editorial, libro.stock, libro.idCategoria, categoria.nombre FROM libros libro JOIN categorias categoria ON libro.idCategoria = categoria.idCategoria";
 
-        try (Connection conexion = DatabaseConnection.conectar();
+        try (Connection conexion = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conexion.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 
@@ -64,7 +64,7 @@ public class LibroDAO {
                 int stock = rs.getInt("stock");
                 int idCategoria = rs.getInt("idCategoria");
 
-                Categoria categoria = new Categoria(idCategoria, "");
+                Categoria categoria = new Categoria(idCategoria, rs.getString("nombre"));
                 Libro libro = new Libro(idLibro, titulo, autor, isbn, editorial, stock, categoria);
                 libros.add(libro);
             }
@@ -85,7 +85,7 @@ public class LibroDAO {
 
         String sql = "UPDATE libros SET titulo =?, autor =?, isbn =?, editorial =?, stock =?, idCategoria =? WHERE idLibro =?";
 
-        try (Connection conexion = DatabaseConnection.conectar();
+        try (Connection conexion = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conexion.prepareStatement(sql)) {
 
             ps.setString(1, libro.getTitulo());
@@ -113,7 +113,7 @@ public class LibroDAO {
 
         String sql = "DELETE FROM libros WHERE idLibro= ?";
 
-        try (Connection conexion = DatabaseConnection.conectar();
+        try (Connection conexion = DatabaseConnection.getInstance().getConnection();
             PreparedStatement ps = conexion.prepareStatement(sql)) {
 
             ps.setInt(1, idLibro);
@@ -129,7 +129,7 @@ public class LibroDAO {
     public boolean cambiarStock(int idLibro, int cantidad) {
         String sql = "UPDATE libros SET stock = stock + ? WHERE idLibro =?";
 
-        try (Connection conexion = DatabaseConnection.conectar();
+        try (Connection conexion = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conexion.prepareStatement(sql)) {
 
             ps.setInt(1, cantidad);
@@ -141,5 +141,26 @@ public class LibroDAO {
             System.out.println("Error al cambiar el stock: " + e.getMessage());
             return false;
         }
+    }
+
+    public int obtenerStock(int idLibro) {
+        String sql = "SELECT stock FROM libros WHERE idLibro = ?";
+
+        try (Connection conexion = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement ps = conexion.prepareStatement(sql)) {
+
+            ps.setInt(1, idLibro);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("stock");
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al obtener el stock: " + e.getMessage());
+        }
+
+        return 0;
     }
 }

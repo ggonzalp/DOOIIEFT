@@ -20,7 +20,7 @@ public class CategoriaDAO {
 
         String sql = "INSERT INTO categorias (nombre) VALUES (?)";
 
-        try (Connection conexion = DatabaseConnection.conectar();
+        try (Connection conexion = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conexion.prepareStatement(sql)) {
 
             ps.setString(1, categoria.getNombre());
@@ -42,7 +42,7 @@ public class CategoriaDAO {
 
         String sql = "SELECT idCategoria, nombre FROM categorias";
 
-        try (Connection conexion = DatabaseConnection.conectar();
+        try (Connection conexion = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conexion.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 
@@ -71,7 +71,7 @@ public class CategoriaDAO {
 
         String sql = "UPDATE categorias SET nombre =? WHERE idCategoria =?";
 
-        try (Connection conexion = DatabaseConnection.conectar();
+        try (Connection conexion = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conexion.prepareStatement(sql)) {
 
             ps.setString(1, categoria.getNombre());
@@ -92,7 +92,7 @@ public class CategoriaDAO {
     public boolean eliminar(int idCategoria) {
         String sql = "DELETE FROM categorias WHERE idCategoria =?";
 
-        try (Connection conexion = DatabaseConnection.conectar();
+        try (Connection conexion = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conexion.prepareStatement(sql)) {
 
             ps.setInt(1, idCategoria);

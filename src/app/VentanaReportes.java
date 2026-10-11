@@ -1,20 +1,29 @@
 package app;
 
 import controlador.Controlador;
-import modelo.Usuario;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.util.List;
 
 public class VentanaReportes extends JFrame {
     private JPanel panelReportes;
+    private JButton btnActivos;
+    private JButton btnAtrasados;
+    private JButton btnMasPrestados;
+    private JTable tablaReportes;
+    private JLabel lblReporte;
 
     private final Controlador controlador;
+    private DefaultTableModel tableModel;
 
     public VentanaReportes(Controlador controlador) {
         this.controlador = controlador;
 
         configurarVentana();
+        configurarTabla();
         configurarBotones();
+        mostrarActivos();
     }
 
     public void configurarVentana() {
@@ -25,7 +34,47 @@ public class VentanaReportes extends JFrame {
         setLocationRelativeTo(null);
     }
 
-    public void configurarBotones() {
+    private void configurarTabla() {
+        tableModel = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int fila, int columna) {
+                return false;
+            }
+        };
+        tablaReportes.setModel(tableModel);
+    }
 
+    public void configurarBotones() {
+        btnActivos.addActionListener(e -> mostrarActivos());
+        btnAtrasados.addActionListener(e -> mostrarAtrasados());
+        btnMasPrestados.addActionListener(e -> mostrarMasPrestados());
+    }
+
+    private void mostrarActivos() {
+        mostrarReporte("Préstamos activos",
+                new String[]{"Estudiante", "Curso", "Libro", "Fecha préstamo", "Fecha devolución"},                controlador.reportePrestamosActivos());
+    }
+
+    private void mostrarAtrasados() {
+        mostrarReporte("Préstamos atrasados",
+                new String[]{"Estudiante", "Curso", "Libro", "Debía devolver", "Días de atraso"},
+                controlador.reportePrestamosAtrasados());
+    }
+
+    private void mostrarMasPrestados() {
+        mostrarReporte("Libros más prestados",
+                new String[]{"Libro", "Categoría", "Veces prestado"},
+                controlador.reporteLibrosMasPrestador());
+    }
+
+    private void mostrarReporte(String titulo, String[] columnas, List<Object[]> filas) {
+        tableModel.setColumnIdentifiers(columnas);
+        tableModel.setRowCount(0);
+
+        for(Object[] fila : filas) {
+            tableModel.addRow(fila);
+        }
+        lblReporte.setText(titulo + ": " + filas.size() + " resultado(s)");
     }
 }
+

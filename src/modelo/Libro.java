@@ -1,16 +1,11 @@
 package modelo;
 
-import util.Eliminar;
-import util.Modificar;
-import util.Registrar;
-import util.Visualizar;
-
 /**
  * Representa un libro de la biblioteca
  */
 
 
-public class Libro implements Runnable {
+public class Libro {
 
     private int idLibro;
     private String titulo;
@@ -99,9 +94,4 @@ public class Libro implements Runnable {
         this.categoria = categoria;
     }
 
-
-    @Override
-    public void run() {
-
-    }
 }

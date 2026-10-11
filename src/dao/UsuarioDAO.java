@@ -26,7 +26,7 @@ public class UsuarioDAO {
     public Usuario autenticar(String correo, String contrasena) {
         String sql = "SELECT idUsuario, nombreUsuario, rut, correo, contrasena, rol FROM usuarios WHERE correo =? AND BINARY contrasena =?";
 
-        try (Connection conexion = DatabaseConnection.conectar();
+        try (Connection conexion = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conexion.prepareStatement(sql)) {
 
             ps.setString(1, correo);
@@ -61,10 +61,10 @@ public class UsuarioDAO {
 
         String sql = "INSERT INTO usuarios (nombreUsuario, rut, correo, contrasena, rol) VALUES(?,?,?,?,?)";
 
-        try (Connection conexion = DatabaseConnection.conectar();
+        try (Connection conexion = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conexion.prepareStatement(sql)) {
 
-            ps.setString(1, usuario.getNombreUsuario());
+            ps.setString(1, usuario.getNombre());
             ps.setString(2, usuario.getRut().getNumero());
             ps.setString(3, usuario.getCorreo());
             ps.setString(4, usuario.getContrasena());
@@ -88,7 +88,7 @@ public class UsuarioDAO {
 
         String sql = "SELECT idUsuario, nombreUsuario, rut, correo, contrasena, rol FROM usuarios";
 
-        try (Connection conexion = DatabaseConnection.conectar();
+        try (Connection conexion = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conexion.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 
@@ -123,10 +123,10 @@ public class UsuarioDAO {
 
         String sql = "UPDATE usuarios SET nombreUsuario =?, rut =?, correo =?, contrasena =?, rol =? WHERE idUsuario =?";
 
-        try (Connection conexion = DatabaseConnection.conectar();
+        try (Connection conexion = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conexion.prepareStatement(sql)) {
 
-            ps.setString(1, usuario.getNombreUsuario());
+            ps.setString(1, usuario.getNombre());
             ps.setString(2, usuario.getRut().getNumero());
             ps.setString(3, usuario.getCorreo());
             ps.setString(4, usuario.getContrasena());
@@ -152,7 +152,7 @@ public class UsuarioDAO {
 
         String sql = "DELETE FROM usuarios WHERE idUsuario = ?";
 
-        try (Connection conexion = DatabaseConnection.conectar();
+        try (Connection conexion = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conexion.prepareStatement(sql)) {
 
             ps.setInt(1, idUsuario);

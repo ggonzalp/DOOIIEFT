@@ -53,7 +53,7 @@ public class VentanaAutentificador extends JFrame {
             return;
         }
         Object[] opciones = {"Ingresar al Sistema"};
-        JOptionPane.showOptionDialog(this, "Bienvenid@ " + usuario.getNombreUsuario(), "Inicio de sesión",
+        JOptionPane.showOptionDialog(this, "Bienvenid@ " + usuario.getNombre(), "Inicio de sesión",
         JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones, opciones[0]);
         dispose();
         new VentanaUsuario(controlador, usuario).setVisible(true);

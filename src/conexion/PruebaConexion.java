@@ -6,7 +6,7 @@ import java.sql.SQLException;
 public class PruebaConexion {
     public static void main(String[] args) {
         try {
-            Connection conn = DatabaseConnection.conectar();
+            Connection conn = DatabaseConnection.getInstance().getConnection();
 
             System.out.println("Válida: " + conn.isValid(2));
 

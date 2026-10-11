@@ -27,7 +27,7 @@ public class PrestamoDAO {
         String sql = "INSERT INTO prestamos (idEstudiante, idLibro," +
                 "fechaPrestamo, fechaDevolucion, devuelto) VALUES (?, ?, ?, ?, ?)";
 
-        try (Connection conexion = DatabaseConnection.conectar();
+        try (Connection conexion = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conexion.prepareStatement(sql)) {
 
             ps.setInt(1, prestamo.getEstudiante().getIdEstudiante());
@@ -54,7 +54,7 @@ public class PrestamoDAO {
 
         String sql = "SELECT idPrestamo, idEstudiante, idLibro, fechaPrestamo, fechaDevolucion, devuelto FROM prestamos";
 
-        try (Connection conexion = DatabaseConnection.conectar();
+        try (Connection conexion = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conexion.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 
@@ -89,7 +89,7 @@ public class PrestamoDAO {
 
         String sql = "UPDATE prestamos SET idEstudiante =?, idLibro =?, fechaPrestamo =?, fechaDevolucion =?, devuelto =? WHERE idPrestamo =?";
 
-        try (Connection conexion = DatabaseConnection.conectar();
+        try (Connection conexion = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conexion.prepareStatement(sql)) {
 
             ps.setInt(1, prestamo.getEstudiante().getIdEstudiante());
@@ -117,7 +117,7 @@ public class PrestamoDAO {
 
         String sql = "DELETE FROM prestamos WHERE idPrestamo = ?";
 
-        try (Connection conexion = DatabaseConnection.conectar();
+        try (Connection conexion = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conexion.prepareStatement(sql)) {
 
             ps.setInt(1, idPrestamo);
@@ -139,14 +139,13 @@ public class PrestamoDAO {
     public List<Prestamo> listarPorEstudiante(int idEstudiante) {
         List<Prestamo> prestamos = new ArrayList<>();
 
+        String sql = "SELECT prestamos.idPrestamo, prestamos.idEstudiante, prestamos.idLibro, libros.titulo, prestamos.fechaPrestamo, prestamos.fechaDevolucion, prestamos.devuelto " +
+                "FROM prestamos " +
+                "JOIN libros ON prestamos.idLibro = libros.idLibro " +
+                "WHERE prestamos.idEstudiante = ? " +
+                "ORDER BY prestamos.fechaPrestamo DESC, prestamos.idPrestamo DESC";
 
-        String sql = "SELECT p.idPrestamo, p.idEstudiante, p.idLibro, l.titulo, p.fechaPrestamo, p.fechaDevolucion, p.devuelto " +
-                "FROM prestamos p " +
-                "JOIN libros l ON p.idLibro = l.idLibro " +
-                "WHERE p.idEstudiante = ? " +
-                "ORDER BY p.fechaPrestamo DESC, p.idPrestamo DESC";
-
-        try (Connection conexion = DatabaseConnection.conectar();
+        try (Connection conexion = DatabaseConnection.getInstance().getConnection();
         PreparedStatement ps = conexion.prepareStatement(sql)) {
 
             ps.setInt(1, idEstudiante);

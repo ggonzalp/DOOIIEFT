@@ -1,5 +1,7 @@
 package modelo;
 
+import util.RutInvalidException;
+
 /**
  * Esta clase representa, almacena y valida el formato del rut.
  */
@@ -18,7 +20,7 @@ public class Rut {
 
         //Validador
         if (!numeroRUT.matches("[0-9]{7,8}-[0-9kK]")) {
-            throw new IllegalArgumentException("Formato de rut no valido");
+            throw new RutInvalidException("Formato de rut no válido: " + numeroRUT);
         }
         this.numero = numeroRUT;
     }

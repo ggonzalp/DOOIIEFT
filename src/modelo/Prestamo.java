@@ -3,7 +3,7 @@ package modelo;
 /**
  * Clase que representa el préstamo de un libro.
  */
-public class Prestamo implements Runnable{
+public class Prestamo {
 
     private int idPrestamo;
     private Estudiante estudiante;
@@ -80,8 +80,4 @@ public class Prestamo implements Runnable{
         this.devuelto = devuelto;
     }
 
-    @Override
-    public void run() {
-
-    }
 }

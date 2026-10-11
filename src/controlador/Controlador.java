@@ -15,6 +15,7 @@ public class Controlador {
     private UsuarioDAO usuarioDAO = new UsuarioDAO();
     private PrestamoDAO prestamoDAO = new PrestamoDAO();
     private CategoriaDAO categoriaDAO = new CategoriaDAO();
+    private ReporteDao reporteDao = new ReporteDao();
 
     //=================
     //      LOGIN
@@ -110,7 +111,7 @@ public class Controlador {
      */
     public boolean registrarLibro(String titulo, String autor, int isbn, String editorial, int stock, Categoria categoria) {
 
-        if (titulo.isBlank() || autor.isBlank() || isbn <= 0 || editorial.isBlank() || stock <= 0 || categoria == null) {
+        if (titulo.isBlank() || autor.isBlank() || isbn < 0 || editorial.isBlank() || stock <= 0 || categoria == null) {
 
             return false;
         }
@@ -130,7 +131,7 @@ public class Controlador {
 
     public boolean editarLibro(int idLibro, String titulo, String autor, int isbn, String editorial, int stock, Categoria categoria) {
 
-        if (idLibro <= 0 || titulo.isBlank() || autor.isBlank() || isbn <= 0 || editorial.isBlank() || stock <= 0 || categoria == null) {
+        if (idLibro <= 0 || titulo.isBlank() || autor.isBlank() || isbn <= 0 || editorial.isBlank() || stock < 0 || categoria == null) {
             return false;
         }
 
@@ -216,7 +217,11 @@ public class Controlador {
      * @return true si se registró, false si no.
      */
     public synchronized boolean registrarPrestamo(Estudiante estudiante, Libro libro) {
-        if (estudiante == null || libro == null || libro.getStock() <= 0) {
+        if (estudiante == null || libro == null) {
+            return false;
+        }
+
+        if (libroDAO.obtenerStock(libro.getIdLibro()) <= 0) {
             return false;
         }
 
@@ -275,6 +280,7 @@ public class Controlador {
 
     /**
      * Busca a un estudiante por su rut.
+     *
      * @param rutTexto Rut ingresado en formato chileno (12345678-9 o K)
      * @return el estudiante o null si no hay registro.
      * @throws IllegalArgumentException si el RUT no tiene un formato válido.
@@ -293,6 +299,7 @@ public class Controlador {
 
     /**
      * Obtiene el historial de préstamos de un estudiante.
+     *
      * @param estudiante Estudiante que consulta.
      * @return lista de préstamos del estudiante.
      */
@@ -302,4 +309,21 @@ public class Controlador {
         }
         return prestamoDAO.listarPorEstudiante(estudiante.getIdEstudiante());
     }
+
+    //=================
+    //    REPORTES
+    //=================
+
+    public List<Object[]> reportePrestamosActivos() {
+        return reporteDao.prestamosActivos();
+    }
+
+    public List<Object[]> reportePrestamosAtrasados() {
+        return reporteDao.prestamosAtrasados();
+    }
+
+    public List<Object[]> reporteLibrosMasPrestador() {
+        return reporteDao.librosMasPrestados();
+    }
 }
+

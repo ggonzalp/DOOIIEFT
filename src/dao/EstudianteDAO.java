@@ -26,7 +26,7 @@ public class EstudianteDAO {
     public boolean guardar(Estudiante estudiante) {
         String sql = "INSERT INTO estudiantes (nombre, rut, curso, correo) VALUES (?, ?, ?, ?)";
 
-        try (Connection conexion = DatabaseConnection.conectar();
+        try (Connection conexion = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conexion.prepareStatement(sql)) {
 
             ps.setString(1, estudiante.getNombre());
@@ -53,7 +53,7 @@ public class EstudianteDAO {
 
         String sql = "SELECT idEstudiante, nombre, rut, curso, correo FROM estudiantes";
 
-        try (Connection conexion = DatabaseConnection.conectar();
+        try (Connection conexion = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conexion.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 
@@ -85,7 +85,7 @@ public class EstudianteDAO {
 
         String sql = "UPDATE estudiantes SET nombre =?, rut =?, curso =?, correo =? WHERE idEstudiante =?";
 
-        try (Connection conexion = DatabaseConnection.conectar();
+        try (Connection conexion = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conexion.prepareStatement(sql)) {
 
             ps.setString(1, estudiante.getNombre());
@@ -112,7 +112,7 @@ public class EstudianteDAO {
 
         String sql = "DELETE FROM estudiantes WHERE idEstudiante = ?";
 
-        try (Connection conexion = DatabaseConnection.conectar();
+        try (Connection conexion = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = conexion.prepareStatement(sql)) {
 
             ps.setInt(1, idEstudiante);
