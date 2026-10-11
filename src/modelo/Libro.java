@@ -36,6 +36,11 @@ public class Libro {
         this.categoria = categoria;
     }
 
+    @Override
+    public String toString() {
+        return titulo + " (stock: " + stock + ")";
+    }
+
     //Metodos getter.
     public int getIdLibro() {
         return idLibro;

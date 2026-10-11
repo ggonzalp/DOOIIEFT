@@ -42,7 +42,7 @@ public class VentanaGestionCategorias extends JFrame implements Registrar, Modif
     }
 
     public void configurarTabla() {
-        tableModel = new DefaultTableModel(new Object[]{"ID", "Categoria"}, 0) {
+        tableModel = new DefaultTableModel(new Object[]{"ID", "Categoría"}, 0) {
             @Override
             public boolean isCellEditable(int fila, int columna) {
                 return false;
@@ -81,7 +81,7 @@ public class VentanaGestionCategorias extends JFrame implements Registrar, Modif
     @Override
     public void registrar() {
         if (txtNombre.getText().isBlank()) {
-            JOptionPane.showMessageDialog(this, "Escribe el nombre de la categoría.");
+            JOptionPane.showMessageDialog(this, "Escriba el nombre de la categoría.");
             return;
         }
 
@@ -98,12 +98,12 @@ public class VentanaGestionCategorias extends JFrame implements Registrar, Modif
     public void modificar() {
         int fila = tablaCategorias.getSelectedRow();
         if (fila == -1) {
-            JOptionPane.showMessageDialog(this, "Seleccione en la tabla la categoría que quiere editar.");
+            JOptionPane.showMessageDialog(this, "Seleccione en la tabla la categoría que desea editar.");
             return;
         }
 
         if(txtNombre.getText().isBlank()) {
-            JOptionPane.showMessageDialog(this, "Escriba el nuevo nombre de la categoría");
+            JOptionPane.showMessageDialog(this, "Escriba el nuevo nombre de la categoría.");
             return;
         }
 
@@ -114,7 +114,7 @@ public class VentanaGestionCategorias extends JFrame implements Registrar, Modif
             limpiar();
             cargarTabla();
         } else {
-            JOptionPane.showMessageDialog(this, "No se pudo actualizar la categoría");
+            JOptionPane.showMessageDialog(this, "No se pudo actualizar la categoría.");
         }
     }
 
@@ -139,7 +139,7 @@ public class VentanaGestionCategorias extends JFrame implements Registrar, Modif
             limpiar();
             cargarTabla();
         } else {
-            JOptionPane.showMessageDialog(this, "No se pudo eliminar. Revise que no tenga libros asociados");
+            JOptionPane.showMessageDialog(this, "No se pudo eliminar. Revise que no tenga libros asociados.");
         }
     }
 

@@ -100,16 +100,16 @@ public class VentanaGestionEstudiantes extends JFrame implements Registrar, Modi
     @Override
     public void registrar() {
         if (faltanDatos()) {
-            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios");
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.");
             return;
         }
 
         if (controlador.registrarEstudiante(txtNombre.getText(), txtRut.getText(), txtCurso.getText(), txtCorreo.getText())) {
-            JOptionPane.showMessageDialog(this, "Estudiante correctamente registrado");
+            JOptionPane.showMessageDialog(this, "Estudiante correctamente registrado.");
             limpiar();
             cargarTabla();
         } else {
-            JOptionPane.showMessageDialog(this, "No se pudo registrar");
+            JOptionPane.showMessageDialog(this, "No se pudo registrar. Revise que el Rut tenga el formato 12345678-9 o K.");
         }
     }
 
@@ -118,12 +118,12 @@ public class VentanaGestionEstudiantes extends JFrame implements Registrar, Modi
     public void modificar() {
         int fila =  tablaEstudiantes.getSelectedRow();
         if (fila == -1) {
-            JOptionPane.showMessageDialog(this, "Seleccione en la tabla el estudiante que desea eliminar.");
+            JOptionPane.showMessageDialog(this, "Seleccione en la tabla el estudiante que desea modificar.");
             return;
         }
 
         if (faltanDatos()) {
-            JOptionPane.showMessageDialog(this, "Completa todos los campos.");
+            JOptionPane.showMessageDialog(this, "Complete todos los campos.");
             return;
         }
 
@@ -134,7 +134,7 @@ public class VentanaGestionEstudiantes extends JFrame implements Registrar, Modi
             limpiar();
             cargarTabla();
         } else {
-            JOptionPane.showMessageDialog(this, "No se pudo actualizar. Revisa que el RUT sea del tipo 12345678-9 y que no esté repetido.");
+            JOptionPane.showMessageDialog(this, "No se pudo actualizar. Revise que el RUT sea del tipo 12345678-9 y que no esté repetido.");
         }
     }
 
@@ -142,7 +142,7 @@ public class VentanaGestionEstudiantes extends JFrame implements Registrar, Modi
     public void eliminar() {
         int fila = tablaEstudiantes.getSelectedRow();
         if (fila == -1) {
-            JOptionPane.showMessageDialog(this, "Selecciona en la tabla el estudiante que quieres eliminar.");
+            JOptionPane.showMessageDialog(this, "Seleccione en la tabla el estudiante que desea eliminar.");
             return;
         }
 
@@ -159,7 +159,7 @@ public class VentanaGestionEstudiantes extends JFrame implements Registrar, Modi
             limpiar();
             cargarTabla();
         } else {
-            JOptionPane.showMessageDialog(this, "No se pudo eliminar. Revisa que no tenga préstamos registrados.");
+            JOptionPane.showMessageDialog(this, "No se pudo eliminar. Revise que no tenga préstamos registrados.");
         }
     }
 

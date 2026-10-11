@@ -36,24 +36,24 @@ public class VentanaAutentificador extends JFrame {
         String textoContrasena = new String(contrasena.getPassword());
 
         if (textoCorreo.isEmpty() || textoContrasena.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Complete correo y contraseña");
+            JOptionPane.showMessageDialog(this, "Complete correo y contraseña.");
             return;
         }
 
         Usuario usuario = controlador.iniciarSesion(textoCorreo, textoContrasena);
 
         if (usuario == null) {
-            JOptionPane.showMessageDialog(this, "Correo o contraseña incorrectos");
+            JOptionPane.showMessageDialog(this, "Correo o contraseña incorrectos.");
             contrasena.setText("");
             return;
         }
 
         if (!controlador.esBibliotecario(usuario)) {
-            JOptionPane.showMessageDialog(this, "Acceso solo para personal de la biblioteca");
+            JOptionPane.showMessageDialog(this, "Acceso solo para personal de la biblioteca.");
             return;
         }
         Object[] opciones = {"Ingresar al Sistema"};
-        JOptionPane.showOptionDialog(this, "Bienvenid@ " + usuario.getNombre(), "Inicio de sesión",
+        JOptionPane.showOptionDialog(this, "Bienvenido/a " + usuario.getNombre(), "Inicio de sesión",
         JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones, opciones[0]);
         dispose();
         new VentanaUsuario(controlador, usuario).setVisible(true);

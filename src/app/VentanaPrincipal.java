@@ -21,7 +21,7 @@ public class VentanaPrincipal extends JFrame {
     public void configurarVentana() {
         setContentPane(panelPrincipal);
         setTitle("Biblioteca Escolar");
-        setSize(800, 400);
+        setSize(300, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
     }

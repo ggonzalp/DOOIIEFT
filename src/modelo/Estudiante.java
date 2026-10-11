@@ -25,6 +25,11 @@ public class Estudiante extends Persona {
         return "Estudiante " + getNombre() + " (" + curso + ")";
     }
 
+    @Override
+    public String toString() {
+        return getNombre() + " (" + getRut() + ")";
+    }
+
     //Metodos getter
     public String getCurso() {
         return curso;

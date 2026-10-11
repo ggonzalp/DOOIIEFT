@@ -78,7 +78,7 @@ public class VentanaEstudiante extends JFrame {
             return true;
         }
 
-        String rut = JOptionPane.showInputDialog(this, "Ingresa tu rut ej: 12345678-9 o K");
+        String rut = JOptionPane.showInputDialog(this, "Ingrese su rut ej: 12345678-9 o K");
         if (rut == null) {
             return false; //Botón salir
         }
@@ -161,7 +161,7 @@ public class VentanaEstudiante extends JFrame {
         }
 
         if (historial.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Todavía no tienes préstamos asociados");
+            JOptionPane.showMessageDialog(this, "Todavía no tiene préstamos asociados");
         }
     }
 
@@ -172,13 +172,13 @@ public class VentanaEstudiante extends JFrame {
     private void prestarLibro() {
         if (!mostrandoCatalogo) {
             cargarCatalogo();
-            JOptionPane.showMessageDialog(this, "Elige un libro del catálogo.");
+            JOptionPane.showMessageDialog(this, "Elija un libro del catálogo.");
             return;
         }
 
         int fila = tablaEstudiante.getSelectedRow();
         if (fila == -1) {
-            JOptionPane.showMessageDialog(this, "Primero selecciona un libro del catálogo.");
+            JOptionPane.showMessageDialog(this, "Primero seleccione un libro del catálogo.");
             return;
         }
 
@@ -199,7 +199,7 @@ public class VentanaEstudiante extends JFrame {
                 if (registrado) {
                     JOptionPane.showMessageDialog(this, "Préstamo registrado: " + libro.getTitulo());
                 } else {
-                    JOptionPane.showMessageDialog(this, "No se pudo registrar el préstamo. Revisa que haya stock.");
+                    JOptionPane.showMessageDialog(this, "No se pudo registrar el préstamo. Revise que haya stock.");
                 }
             });
         }).start();
@@ -212,14 +212,14 @@ public class VentanaEstudiante extends JFrame {
             if (mostrandoCatalogo) {
                 mostrarHistorial();
                 if (!mostrandoCatalogo && !historial.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Elige el préstamo pendiente y presiona Devolución.");
+                    JOptionPane.showMessageDialog(this, "Elija el préstamo pendiente y presione Devolución.");
                 }
                 return;
             }
 
             int fila = tablaEstudiante.getSelectedRow();
             if (fila == -1) {
-                JOptionPane.showMessageDialog(this, "Primero selecciona un préstamo de la tabla.");
+                JOptionPane.showMessageDialog(this, "Primero seleccione un préstamo de la tabla.");
                 return;
             }
 

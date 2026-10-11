@@ -120,7 +120,7 @@ public class VentanaGestionLibros extends JFrame implements Registrar, Modificar
     @Override
     public void registrar() {
         if (faltanDatos()) {
-            JOptionPane.showMessageDialog(this, "Completa todos los campos.");
+            JOptionPane.showMessageDialog(this, "Complete todos los campos.");
             return;
         }
 
@@ -137,7 +137,7 @@ public class VentanaGestionLibros extends JFrame implements Registrar, Modificar
                 limpiar();
                 cargarTabla();
             } else {
-                JOptionPane.showMessageDialog(this, "No se pudo guardar. Revisa que no falten datos y que el ISBN no esté repetido.");
+                JOptionPane.showMessageDialog(this, "No se pudo guardar. Revise que no falten datos y que el ISBN no esté repetido.");
             }
 
         } catch (NumberFormatException ex) {
@@ -148,7 +148,7 @@ public class VentanaGestionLibros extends JFrame implements Registrar, Modificar
     public void modificar() {
         int fila = tablaLibros.getSelectedRow();
         if (fila == -1) {
-            JOptionPane.showMessageDialog(this, "Seleccine en la tabla el librbo que desea editar.");
+            JOptionPane.showMessageDialog(this, "Seleccione en la tabla el libro que desea editar.");
             return;
         }
 
@@ -171,7 +171,7 @@ public class VentanaGestionLibros extends JFrame implements Registrar, Modificar
                 limpiar();
                 cargarTabla();
             } else {
-                JOptionPane.showMessageDialog(this, "No se pudo actualizar. Revisa que no falten datos y que el ISBN no esté repetido.");
+                JOptionPane.showMessageDialog(this, "No se pudo actualizar. Revise que no falten datos y que el ISBN no esté repetido.");
             }
 
         } catch (NumberFormatException ex) {
@@ -183,7 +183,7 @@ public class VentanaGestionLibros extends JFrame implements Registrar, Modificar
     public void eliminar() {
         int fila = tablaLibros.getSelectedRow();
         if (fila == -1) {
-            JOptionPane.showMessageDialog(this, "Selecciona en la tabla el libro que quieres eliminar.");
+            JOptionPane.showMessageDialog(this, "Seleccione en la tabla el libro que desea eliminar.");
             return;
         }
 
@@ -200,7 +200,7 @@ public class VentanaGestionLibros extends JFrame implements Registrar, Modificar
             limpiar();
             cargarTabla();
         } else {
-            JOptionPane.showMessageDialog(this, "No se pudo eliminar. Revisa que no tenga préstamos registrados.");
+            JOptionPane.showMessageDialog(this, "No se pudo eliminar. Revise que no tenga préstamos registrados.");
         }
     }
 

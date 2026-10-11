@@ -68,7 +68,7 @@ public class VentanaReportes extends JFrame {
     }
 
     private void mostrarHistorial() {
-        String rut = JOptionPane.showInputDialog(this, "RUT del estudiante (ej: 12345678-9):");
+        String rut = JOptionPane.showInputDialog(this, "Ingrese Rut del estudiante (ej: 12345678-9):");
         if (rut == null) {
             return; // Apretó Cancelar
         }

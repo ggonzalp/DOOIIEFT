@@ -13,6 +13,7 @@ public class VentanaUsuario extends JFrame{
     private JButton btnReportes;
     private JButton btnCerrarSesion;
     private JButton btnCategorias;
+    private JButton btnPrestamos;
 
     private final Controlador controlador;
 
@@ -36,6 +37,7 @@ public class VentanaUsuario extends JFrame{
         btnLibros.addActionListener(e -> new VentanaGestionLibros(controlador).setVisible(true));
         btnCategorias.addActionListener(e -> new VentanaGestionCategorias(controlador).setVisible(true));
         btnReportes.addActionListener(e -> new VentanaReportes(controlador).setVisible(true));
+        btnPrestamos.addActionListener(e -> new VentanaPrestamos(controlador).setVisible(true));
         btnCerrarSesion.addActionListener(e -> dispose());
 
     }
