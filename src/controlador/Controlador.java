@@ -210,8 +210,9 @@ public class Controlador {
 
     /**
      * Registra un préstamo.
+     *
      * @param estudiante Estudiante que solicita un préstamo.
-     * @param libro Libro que puede ser registrado y prestado.
+     * @param libro      Libro que puede ser registrado y prestado.
      * @return true si se registró, false si no.
      */
     public synchronized boolean registrarPrestamo(Estudiante estudiante, Libro libro) {
@@ -232,6 +233,7 @@ public class Controlador {
 
     /**
      * Obtiene los préstamos.
+     *
      * @return lista de préstamos.
      */
     public List<Prestamo> obtenerPrestamos() {
@@ -240,6 +242,7 @@ public class Controlador {
 
     /**
      * Registra una devolución
+     *
      * @param prestamo Préstamo que se devuelve.
      * @return true si se registró, false si no.
      */
@@ -259,6 +262,7 @@ public class Controlador {
 
     /**
      * Elimina un préstamo.
+     *
      * @param idPrestamo Número de identificación del préstamo.
      * @return true si se eliminó, false si no.
      */
@@ -267,5 +271,35 @@ public class Controlador {
             return false;
         }
         return prestamoDAO.eliminar(idPrestamo);
+    }
+
+    /**
+     * Busca a un estudiante por su rut.
+     * @param rutTexto Rut ingresado en formato chileno (12345678-9 o K)
+     * @return el estudiante o null si no hay registro.
+     * @throws IllegalArgumentException si el RUT no tiene un formato válido.
+     */
+
+    public Estudiante buscarEstudiantePorRut(String rutTexto) {
+        Rut rut = new Rut(rutTexto.trim());
+
+        for (Estudiante estudiante : estudianteDAO.listarTodos()) {
+            if (estudiante.getRut().getNumero().equalsIgnoreCase(rut.getNumero())) {
+                return estudiante;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Obtiene el historial de préstamos de un estudiante.
+     * @param estudiante Estudiante que consulta.
+     * @return lista de préstamos del estudiante.
+     */
+    public List<Prestamo> obtenerHistorial(Estudiante estudiante) {
+        if (estudiante == null) {
+            return List.of();
+        }
+        return prestamoDAO.listarPorEstudiante(estudiante.getIdEstudiante());
     }
 }

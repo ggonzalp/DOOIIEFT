@@ -48,7 +48,7 @@ public class CategoriaDAO {
 
             while (rs.next()) {
                 int idCategoria = rs.getInt("idCategoria");
-                String nombre = rs.getString("nombreCategoria");
+                String nombre = rs.getString("nombre");
 
 
                 Categoria categoria = new Categoria(idCategoria, nombre);

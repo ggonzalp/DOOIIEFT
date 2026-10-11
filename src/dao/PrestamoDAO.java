@@ -30,7 +30,7 @@ public class PrestamoDAO {
         try (Connection conexion = DatabaseConnection.conectar();
              PreparedStatement ps = conexion.prepareStatement(sql)) {
 
-           ps.setInt(1, prestamo.getEstudiante().getIdEstudiante());
+            ps.setInt(1, prestamo.getEstudiante().getIdEstudiante());
             ps.setInt(2, prestamo.getLibro().getIdLibro());
             ps.setString(3, prestamo.getFechaPrestamo());
             ps.setString(4, prestamo.getFechaDevolucion());
@@ -46,6 +46,7 @@ public class PrestamoDAO {
 
     /**
      * Obtiene la lista de préstamos registrados.
+     *
      * @return Lista de préstamos registrados; vacía si no hay préstamos o si ocurre un error.
      */
     public List<Prestamo> listarTodos() {
@@ -66,7 +67,7 @@ public class PrestamoDAO {
                 boolean devuelto = rs.getBoolean("Devuelto");
 
                 Estudiante estudiante = new Estudiante(idEstudiante, "", null, "", "");
-                Libro libro = new Libro(idLibro, "","",0, "", 0, null);
+                Libro libro = new Libro(idLibro, "", "", 0, "", 0, null);
                 Prestamo prestamo = new Prestamo(idPrestamo, estudiante, libro, fechaPrestamo, fechaDevolucion, devuelto);
                 prestamos.add(prestamo);
 
@@ -80,6 +81,7 @@ public class PrestamoDAO {
 
     /**
      * Actualiza los datos registrados en la lista
+     *
      * @param prestamo Préstamo de un libro.
      * @return true si fue posible la actualización, de lo contrario false.
      */
@@ -107,6 +109,7 @@ public class PrestamoDAO {
 
     /**
      * Elimina elementos de la lista a partir de su id.
+     *
      * @param idPrestamo Número de identificación del libro.
      * @return true si se eliminó correctamente, de lo contrario false.
      */
@@ -125,5 +128,43 @@ public class PrestamoDAO {
             System.out.println("Error al eliminar préstamo: " + e.getMessage());
             return false;
         }
+    }
+
+    /**
+     * Obtiene los préstamos de un estudiante.
+     * @param idEstudiante Número de identificación de un estudiante
+     * @return Lista de préstamos del estudiante.
+     */
+
+    public List<Prestamo> listarPorEstudiante(int idEstudiante) {
+        List<Prestamo> prestamos = new ArrayList<>();
+
+
+        String sql = "SELECT p.idPrestamo, p.idEstudiante, p.idLibro, l.titulo, p.fechaPrestamo, p.fechaDevolucion, p.devuelto " +
+                "FROM prestamos p " +
+                "JOIN libros l ON p.idLibro = l.idLibro " +
+                "WHERE p.idEstudiante = ? " +
+                "ORDER BY p.fechaPrestamo DESC, p.idPrestamo DESC";
+
+        try (Connection conexion = DatabaseConnection.conectar();
+        PreparedStatement ps = conexion.prepareStatement(sql)) {
+
+            ps.setInt(1, idEstudiante);
+
+            try(ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Estudiante estudiante = new Estudiante(rs.getInt("idEstudiante"), "", null, "", "");
+                    Libro libro = new Libro(rs.getInt("idLibro"), rs.getString("titulo"), "", 0, "", 0, null);
+                    Prestamo prestamo = new Prestamo(rs.getInt("idPrestamo"), estudiante, libro, rs.getString("fechaPrestamo"), rs.getString("fechaDevolucion"), rs.getBoolean("devuelto"));
+
+                    prestamos.add(prestamo);
+
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al listar historial: " + e.getMessage());
+        }
+
+        return prestamos;
     }
 }
