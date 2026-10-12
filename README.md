@@ -1,4 +1,4 @@
-# EFT
+# Evaluación final Transversal - EFT
 
 La Evaluación Final Transversal consiste en implementar una aplicación de software de escritorio 
 de mediana complejidad, utilizando el lenguaje Java, integrando principios de Programación Orientada a Objetos, 
