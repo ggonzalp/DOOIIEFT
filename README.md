@@ -22,6 +22,13 @@ y devolución de libros para estudiantes, así como la gestión de inventario y 
 
 4° El programa cargará automáticamente los datos ingresados ​​de forma local y manual.
 
+### Presentación en video 
+https://www.youtube.com/watch?v=ysRaZrzB0Zk
+
+
+
+
+
 
 
 Estudiante: Gabriela González Peirano 
